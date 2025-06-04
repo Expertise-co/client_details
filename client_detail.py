@@ -41,7 +41,7 @@ col3.metric("🔄 In Progress", status_counts.get('In Progress', 0))
 
 st.markdown("---")
 
-clients = sorted(df['CLIENT'].dropna().unique())
+clients = sorted([client for client in df['CLIENT'].dropna().unique() if client.strip().lower() != 'target'])
 typed_client = st.selectbox(
     "🔍 Type or select a client name",
     options=[""] + clients,
