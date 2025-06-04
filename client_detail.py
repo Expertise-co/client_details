@@ -23,7 +23,7 @@ def load_data():
 
 df = load_data()
 
-df['CLIENT'] = df['CLIENT'].astype(str).str.strip()
+
 df['STATUS'] = df['STATUS'].astype(str).str.strip()
 df['VENDOR #'] = df['VENDOR #'].astype(str).str.strip()
 
@@ -67,7 +67,7 @@ if st.button("🔎 Get Details"):
 
         if not filtered_df.empty:
             display_df = filtered_df[['CLIENT', 'VENDOR #', 'STATUS']].reset_index(drop=True)
-            display_df = display_df.fillna('').replace(['nan', 'NaN', 'None'], 'Not Available')
+            display_df = display_df.fillna('').replace(['nan', 'NaN', 'None'], 'NA')
             st.dataframe(display_df.style.hide(axis='index'), use_container_width=True, height=50)
         else:
             st.error("❌ No valid data found for that client. Please check the name.")
