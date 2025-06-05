@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import requests
+from io import BytesIO
 
 
 st.set_page_config(
@@ -19,9 +21,20 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 @st.cache_data
 def load_data():
-    return pd.read_excel('Vendor Registration.xlsx', sheet_name='Sheet1', skiprows=1)
+    direct_url = ONEDRIVE_URL.strip() + "&download=1"
+    response = requests.get(direct_url)
+    
+    if response.status_code != 200:
+        raise Exception("❌ Could not load the file from OneDrive. Please check the link.")
+    
+    return pd.read_excel(BytesIO(response.content), sheet_name='Sheet1', skiprows=1)
 
-df = load_data()
+# Load data
+try:
+    df = load_data()
+except Exception as e:
+    st.error(str(e))
+    st.stop()
 
 
 df['STATUS'] = df['STATUS'].astype(str).str.strip()
