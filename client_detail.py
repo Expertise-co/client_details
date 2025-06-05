@@ -30,7 +30,7 @@ def load_data():
     
     return pd.read_excel(BytesIO(response.content), sheet_name='Sheet1', skiprows=1)
 
-if st.button("🔄 Refresh Data"):
+if st.button("⟲ Refresh Data"):
     load_data.clear()
     st.rerun()
     
