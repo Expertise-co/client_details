@@ -3,7 +3,6 @@ import pandas as pd
 import requests
 from io import BytesIO
 
-
 st.set_page_config(
     page_title="Client Details",
     layout="wide",
@@ -31,13 +30,15 @@ def load_data():
     
     return pd.read_excel(BytesIO(response.content), sheet_name='Sheet1', skiprows=1)
 
-# Load data
+if st.button("🔄 Refresh Data"):
+    load_data.clear()
+    st.rerun()
+    
 try:
     df = load_data()
 except Exception as e:
     st.error(str(e))
     st.stop()
-
 
 df['STATUS'] = df['STATUS'].astype(str).str.strip()
 df['VENDOR #'] = df['VENDOR #'].astype(str).str.strip()
