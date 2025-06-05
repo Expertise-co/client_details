@@ -19,6 +19,8 @@ hide_streamlit_style = """
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+ONEDRIVE_URL = st.secrets["onedrive"]["share_url"]
+
 @st.cache_data
 def load_data():
     direct_url = ONEDRIVE_URL.strip() + "&download=1"
