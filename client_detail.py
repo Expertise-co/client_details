@@ -21,7 +21,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 @st.cache_data
 def load_data():
-    direct_url = onedrive_url.strip() + "&download=1"
+    direct_url = ONEDRIVE_URL.strip() + "&download=1"
     response = requests.get(direct_url)
     
     if response.status_code != 200:
