@@ -40,6 +40,7 @@ except Exception as e:
     st.error(str(e))
     st.stop()
 
+df['CLIENT'] = df['CLIENT'].astype(str).str.strip()
 df['STATUS'] = df['STATUS'].astype(str).str.strip()
 df['VENDOR #'] = df['VENDOR #'].astype(str).str.strip()
 
