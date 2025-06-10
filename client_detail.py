@@ -91,7 +91,7 @@ if st.button("🔎 Get Details"):
 
 st.markdown("---")
 st.markdown(
-    "<small style='color:gray;'>© 2025 Expertise Contracting Co. Ltd</small>",
+    "<small style='color:gray;'>© 2025 Expertise CJSC.</small>",
     unsafe_allow_html=True
 )
 
