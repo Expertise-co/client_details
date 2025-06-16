@@ -48,13 +48,46 @@ st.markdown("<h1 style='color:#1f77b4; margin-bottom: 10px; text-align: center;'
 
 st.markdown("---")
 
-st.subheader("📊 Overall Status Summary")
-col1, col2, col3 = st.columns([1,1,1])
-status_counts = df['STATUS'].value_counts()
+st.markdown("## 📊 View Client Details by Status")
 
-col1.metric("✅ Registered", status_counts.get('Registered', 0))
-col2.metric("📤 Submitted", status_counts.get('Submitted', 0))
-col3.metric("🔄 In Progress", status_counts.get('In Progress', 0))
+status_counts = df['STATUS'].str.strip().value_counts()
+count_registered = status_counts.get('Registered', 0)
+count_submitted = status_counts.get('Submitted', 0)
+count_inprogress = status_counts.get('In Progress', 0)
+
+col1, col2, col3 = st.columns(3)
+
+show_table = False
+status_filter = None
+
+if col1.button(f"✅ Registered ({count_registered})"):
+    status_filter = "Registered"
+    show_table = True
+
+if col2.button(f"📤 Submitted ({count_submitted})"):
+    status_filter = "Submitted"
+    show_table = True
+
+if col3.button(f"🔄 In Progress ({count_inprogress})"):
+    status_filter = "In Progress"
+    show_table = True
+
+# Show table when a button is clicked
+if show_table and status_filter:
+    filtered_df = df[df['STATUS'].str.strip().str.lower() == status_filter.lower()]
+    filtered_df = filtered_df[['CLIENT', 'VENDOR #', 'STATUS']].dropna(how='all')
+    filtered_df = filtered_df[
+        (filtered_df['CLIENT'].str.strip() != '') &
+        (filtered_df['VENDOR #'].str.strip() != '') &
+        (filtered_df['STATUS'].str.strip() != '')
+    ]
+    if not filtered_df.empty:
+        st.markdown(f"### 📋 Showing details for: **{status_filter}**")
+        filtered_df = filtered_df.fillna('').replace(['nan', 'NaN', 'None'], 'NA')
+        st.dataframe(filtered_df.style.hide(axis='index'), use_container_width=True)
+    else:
+        st.warning(f"No records found for status: **{status_filter}**")
+
 
 st.markdown("---")
 
