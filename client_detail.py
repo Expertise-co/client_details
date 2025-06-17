@@ -124,7 +124,7 @@ if st.button("🔎 Get Details"):
 
 st.markdown("---")
 st.markdown(
-    "<small style='color:gray;'>© 2025 Expertise CJSC.</small>",
+    "<small style='color:gray;'>© 2025 Expertise C.J.S.C.</small>",
     unsafe_allow_html=True
 )
 
