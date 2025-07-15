@@ -28,7 +28,7 @@ def load_data():
     if response.status_code != 200:
         raise Exception("❌ Could not load the file from OneDrive. Please check the link.")
     
-    return pd.read_excel(BytesIO(response.content), sheet_name='Sheet1', skiprows=1)
+    return pd.read_excel(BytesIO(response.content), sheet_name='VR', skiprows=1)
 
 if st.button("⟲ Refresh Data"):
     load_data.clear()
