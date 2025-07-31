@@ -28,7 +28,10 @@ def load_data():
     if response.status_code != 200:
         raise Exception("❌ Could not load the file from OneDrive. Please check the link.")
     
-    return pd.read_excel(BytesIO(response.content), sheet_name='VR', skiprows=1)
+    excel_file = pd.ExcelFile(BytesIO(response.content))
+    df_vr = pd.read_excel(excel_file, sheet = 'VR', skiprows = 1)
+    df_old_vr = pd.read_excel(excel_file, sheet = 'OLD VR DETAILS')
+    df_combined = concat([df_vr, df_old_vr], ignore_index = True)
 
 if st.button("⟲ Refresh Data"):
     load_data.clear()
