@@ -33,6 +33,8 @@ def load_data():
     df_old_vr = pd.read_excel(excel_file, sheet_name = 'OLD VR DETAILS')
     df_combined = pd.concat([df_vr, df_old_vr], ignore_index = True)
 
+    return df_combined
+
 if st.button("⟲ Refresh Data"):
     load_data.clear()
     st.rerun()
