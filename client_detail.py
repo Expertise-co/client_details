@@ -31,7 +31,7 @@ def load_data():
     excel_file = pd.ExcelFile(BytesIO(response.content))
     df_vr = pd.read_excel(excel_file, sheet_name = 'VR', skiprows = 1)
     df_old_vr = pd.read_excel(excel_file, sheet_name = 'OLD VR DETAILS')
-    df_combined = concat([df_vr, df_old_vr], ignore_index = True)
+    df_combined = pd.concat([df_vr, df_old_vr], ignore_index = True)
 
 if st.button("⟲ Refresh Data"):
     load_data.clear()
